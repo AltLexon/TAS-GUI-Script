@@ -489,23 +489,22 @@ local function Record()
     MakeGui()
     MapScript()
     WaterEvent()
-end
 
 
 for i,v in pairs(game:GetService("Workspace").Map:GetDescendants()) do
     if string.lower(v.Name) == "waterstate" then
         v.Parent.Touched:Connect(function(part)
-        if part.Name == "Head" and part.Parent.Name == game.Players.LocalPlayer.Name then
-            getgenv().swim = true
-            swim()
-        end
-    end)
-    v.Parent.TouchEnded:Connect(function(part)
-    if part.Name == "Head" and part.Parent.Name == game.Players.LocalPlayer.Name then
-            getgenv().swim = false
-            swim()
-        end
-    end)
+            if part.Name == "Head" and part.Parent.Name == game.Players.LocalPlayer.Name then
+                getgenv().swim = true
+                swim()
+            end
+        end)
+        v.Parent.TouchEnded:Connect(function(part)
+            if part.Name == "Head" and part.Parent.Name == game.Players.LocalPlayer.Name then
+                getgenv().swim = false
+                swim()
+            end
+        end)
     end
 end
 end

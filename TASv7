@@ -1,0 +1,849 @@
+if getgenv().ready == true then
+    error("Already Executed!")
+end
+
+local SolarisLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/sol"))()
+local win = SolarisLib:New({
+  Name = "AltLexon TAS GUI",
+  FolderToSave = "AltLexon TAS GUI"
+})
+
+local wait = task.wait
+local alert = game:GetService("Players").LocalPlayer.PlayerScripts.CL_MAIN_GameScript.Alert
+
+local Main = win:Tab("Main")
+local TAS = Main:Section("TAS")
+local Custom = Main:Section("Custom")
+
+TAS:Toggle("Auto-Play", false, "Toggle", function (v)
+    getgenv().autoplay = v
+    if v == true then
+        alert:Fire("Auto Play Enabled", Color3.fromRGB(50,255,50))
+    else
+        alert:Fire("Auto Play Disabled", Color3.fromRGB(255,50,50))
+    end
+end)
+
+getgenv().autoplay = false
+spawn(function ()
+    while wait(0.4) do
+        if getgenv().autoplay ~= false then
+            local map = game:GetService("Workspace").Multiplayer:WaitForChild("NewMap"):WaitForChild("Settings"):WaitForChild("MapName").Value
+            local mapValid = isfile(map..".json")
+
+            if mapValid == true then
+                getgenv().RunName = map
+                loadstring(game:HttpGet("https://gist.githubusercontent.com/ExploitOnYt/41f9cf6e0d8f11903b531fa42ec20b6b/raw/44577cec7405ea15721aa65679ede3ae33746828/Tas%2520Run", true))()
+                print("Map Loaded: "..map)
+            else
+                alert:Fire("TAS File doesn't exist. Resetting!", Color3.fromRGB(255,50,50))
+                game:GetService("Players").LocalPlayer.Character.Head:Destroy()
+                game.Players.LocalPlayer.CharacterAdded:wait()
+                wait(0.1)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-26.2982159, -144.449982, 65.8702049, -0.999389648, -1.71718106e-08, -0.0349324718, -1.68463199e-08, 1, -9.61204005e-09, 0.0349324718, -9.01768971e-09, -0.999389648)
+            end
+        end
+    end
+end)
+
+TAS:Button("Play TAS (next map)", function ()
+    getgenv().play = true
+end)
+
+getgenv().play = false
+spawn(function ()
+    while wait(0.4) do
+        if getgenv().play ~= false then
+            local map = game:GetService("Workspace").Multiplayer:WaitForChild("NewMap"):WaitForChild("Settings"):WaitForChild("MapName").Value
+            local mapValid = isfile(map..".json")
+
+            if mapValid == true then
+                getgenv().RunName = map
+                loadstring(game:HttpGet("https://gist.githubusercontent.com/ExploitOnYt/41f9cf6e0d8f11903b531fa42ec20b6b/raw/44577cec7405ea15721aa65679ede3ae33746828/Tas%2520Run", true))()
+                getgenv().play = false
+                alert:Fire("Map Loaded: "..map, Color3.fromRGB(50,255,255))
+            else
+                alert:Fire("The TAS File doesn't exist!", Color3.fromRGB(255,50,50))
+            getgenv().play = false
+            end
+        end
+    end
+end)
+
+local GameStats = game.Players.LocalPlayer.PlayerGui.GameGui.HUD.GameStats
+getgenv().recordCheck = false
+local function MakeGui()
+
+    for i,v in pairs(GameStats:GetDescendants()) do
+        if v:IsA("TextLabel") then
+            v.Visible = false
+        end
+    end
+local screen = Instance.new("ScreenGui", game.CoreGui)
+local Frame = Instance.new("Frame")
+local Horizontal = Instance.new("TextLabel")
+local Vertical = Instance.new("TextLabel")
+local ComingSoon = Instance.new("TextLabel")
+local Credits = Instance.new("TextLabel")
+local WaterWorksToggle = Instance.new("TextLabel")
+local ToggleCanCollideImprove = Instance.new("TextLabel")
+local VelocityToggle = Instance.new("TextLabel")
+local PartsColors = Instance.new("TextLabel")
+local PlayTAS = Instance.new("TextLabel")
+local ToggleCanCollide = Instance.new("TextLabel")
+local FrameAdvance = Instance.new("TextLabel")
+local SaveTAS = Instance.new("TextLabel")
+local AdvanceFrame = Instance.new("TextLabel")
+local RewindFrame = Instance.new("TextLabel")
+local pauseunpauselabel = Instance.new("TextLabel")
+local AddSavestate = Instance.new("TextLabel")
+local DeleteSavestate = Instance.new("TextLabel")
+local GoToSavestate = Instance.new("TextLabel")
+local FPS = Instance.new("TextLabel")
+local Savestates = Instance.new("TextLabel")
+local Timer = Instance.new("TextLabel")
+Frame.Parent = screen
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BackgroundTransparency = 1.000
+Frame.Position = UDim2.new(0.150000006, 0, 0.701346397, 0)
+Frame.Size = UDim2.new(0.639062524, 0, 0.122399017, 0)
+Horizontal.Parent = Frame
+Horizontal.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Horizontal.BackgroundTransparency = 1.000
+Horizontal.Size = UDim2.new(0.246943772, 0, 1, 0)
+Horizontal.Font = Enum.Font.Ubuntu
+Horizontal.Text = "Horizontal:"
+Horizontal.TextColor3 = Color3.fromRGB(255, 255, 255)
+Horizontal.TextScaled = true
+Horizontal.TextSize = 14.000
+Horizontal.TextWrapped = true
+Vertical.Parent = Frame
+Vertical.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Vertical.BackgroundTransparency = 1.000
+Vertical.Position = UDim2.new(0.791361034, 0, 0, 0)
+Vertical.Size = UDim2.new(0.208638951, 0, 1, 0)
+Vertical.Font = Enum.Font.Ubuntu
+Vertical.Text = "Vertical: "
+Vertical.TextColor3 = Color3.fromRGB(255, 255, 255)
+Vertical.TextScaled = true
+Vertical.TextSize = 14.000
+Vertical.TextWrapped = true
+ComingSoon.Name = "ComingSoon"
+ComingSoon.Parent = GameStats
+ComingSoon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ComingSoon.BackgroundTransparency = 1.000
+ComingSoon.Position = UDim2.new(0.837835431, 0, 0.739165783, 0)
+ComingSoon.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+ComingSoon.Font = Enum.Font.Ubuntu
+ComingSoon.Text = "Coming Soon..."
+ComingSoon.TextColor3 = Color3.fromRGB(255, 255, 255)
+ComingSoon.TextScaled = true
+ComingSoon.TextSize = 14.000
+ComingSoon.TextWrapped = true
+Credits.Name = "Credits"
+Credits.Parent = GameStats
+Credits.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Credits.BackgroundTransparency = 1.000
+Credits.Position = UDim2.new(0.837835431, 0, 0.495796442, 0)
+Credits.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+Credits.Font = Enum.Font.Ubuntu
+Credits.Text = "Credits: AltLexon#6917"
+Credits.TextColor3 = Color3.fromRGB(255, 255, 255)
+Credits.TextScaled = true
+Credits.TextSize = 14.000
+Credits.TextWrapped = true
+WaterWorksToggle.Name = "WaterWorksToggle"
+WaterWorksToggle.Parent = GameStats
+WaterWorksToggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+WaterWorksToggle.BackgroundTransparency = 1.000
+WaterWorksToggle.Position = UDim2.new(0.837835431, 0, 0.252427071, 0)
+WaterWorksToggle.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+WaterWorksToggle.Font = Enum.Font.Ubuntu
+WaterWorksToggle.Text = "Z: Water works toggle"
+WaterWorksToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+WaterWorksToggle.TextScaled = true
+WaterWorksToggle.TextSize = 14.000
+WaterWorksToggle.TextWrapped = true
+ToggleCanCollideImprove.Name = "ToggleCanCollideImprove"
+ToggleCanCollideImprove.Parent = GameStats
+ToggleCanCollideImprove.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ToggleCanCollideImprove.BackgroundTransparency = 1.000
+ToggleCanCollideImprove.Position = UDim2.new(0.837835431, 0, 0.00905769225, 0)
+ToggleCanCollideImprove.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+ToggleCanCollideImprove.Font = Enum.Font.Ubuntu
+ToggleCanCollideImprove.Text = "X: Toggle CanCollide (improved)"
+ToggleCanCollideImprove.TextColor3 = Color3.fromRGB(255, 255, 255)
+ToggleCanCollideImprove.TextScaled = true
+ToggleCanCollideImprove.TextSize = 14.000
+ToggleCanCollideImprove.TextWrapped = true
+VelocityToggle.Name = "VelocityToggle"
+VelocityToggle.Parent = GameStats
+VelocityToggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+VelocityToggle.BackgroundTransparency = 1.000
+VelocityToggle.Position = UDim2.new(0.676554084, 0, -0.0089696683, 0)
+VelocityToggle.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+VelocityToggle.Font = Enum.Font.Ubuntu
+VelocityToggle.Text = "8: Velocity Toggle"
+VelocityToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+VelocityToggle.TextScaled = true
+VelocityToggle.TextSize = 14.000
+VelocityToggle.TextWrapped = true
+PartsColors.Name = "PartsColors"
+PartsColors.Parent = GameStats
+PartsColors.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PartsColors.BackgroundTransparency = 1.000
+PartsColors.Position = UDim2.new(0.676554084, 0, 0.234399706, 0)
+PartsColors.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+PartsColors.Font = Enum.Font.Ubuntu
+PartsColors.Text = "9: Parts Colors"
+PartsColors.TextColor3 = Color3.fromRGB(255, 255, 255)
+PartsColors.TextScaled = true
+PartsColors.TextSize = 14.000
+PartsColors.TextWrapped = true
+PlayTAS.Name = "PlayTAS"
+PlayTAS.Parent = GameStats
+PlayTAS.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PlayTAS.BackgroundTransparency = 1.000
+PlayTAS.Position = UDim2.new(0.676554084, 0, 0.477769077, 0)
+PlayTAS.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+PlayTAS.Font = Enum.Font.Ubuntu
+PlayTAS.Text = "0: Play TAS"
+PlayTAS.TextColor3 = Color3.fromRGB(255, 255, 255)
+PlayTAS.TextScaled = true
+PlayTAS.TextSize = 14.000
+PlayTAS.TextWrapped = true
+ToggleCanCollide.Name = "ToggleCanCollide"
+ToggleCanCollide.Parent = GameStats
+ToggleCanCollide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ToggleCanCollide.BackgroundTransparency = 1.000
+ToggleCanCollide.Position = UDim2.new(0.676554084, 0, 0.721138418, 0)
+ToggleCanCollide.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+ToggleCanCollide.Font = Enum.Font.Ubuntu
+ToggleCanCollide.Text = "C: Toggle CanCollide (Voiz)"
+ToggleCanCollide.TextColor3 = Color3.fromRGB(255, 255, 255)
+ToggleCanCollide.TextScaled = true
+ToggleCanCollide.TextSize = 14.000
+ToggleCanCollide.TextWrapped = true
+FrameAdvance.Name = "FrameAdvance"
+FrameAdvance.Parent = GameStats
+FrameAdvance.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+FrameAdvance.BackgroundTransparency = 1.000
+FrameAdvance.Position = UDim2.new(0.518581271, 0, 0.721138418, 0)
+FrameAdvance.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+FrameAdvance.Font = Enum.Font.Ubuntu
+FrameAdvance.Text = "7: Frame Advance"
+FrameAdvance.TextColor3 = Color3.fromRGB(255, 255, 255)
+FrameAdvance.TextScaled = true
+FrameAdvance.TextSize = 14.000
+FrameAdvance.TextWrapped = true
+SaveTAS.Name = "SaveTAS"
+SaveTAS.Parent = GameStats
+SaveTAS.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+SaveTAS.BackgroundTransparency = 1.000
+SaveTAS.Position = UDim2.new(0.518581271, 0, 0.477769077, 0)
+SaveTAS.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+SaveTAS.Font = Enum.Font.Ubuntu
+SaveTAS.Text = "6: Save TAS (in workspace)"
+SaveTAS.TextColor3 = Color3.fromRGB(255, 255, 255)
+SaveTAS.TextScaled = true
+SaveTAS.TextSize = 14.000
+SaveTAS.TextWrapped = true
+AdvanceFrame.Name = "AdvanceFrame"
+AdvanceFrame.Parent = GameStats
+AdvanceFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+AdvanceFrame.BackgroundTransparency = 1.000
+AdvanceFrame.Position = UDim2.new(0.518581271, 0, 0.234399706, 0)
+AdvanceFrame.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+AdvanceFrame.Font = Enum.Font.Ubuntu
+AdvanceFrame.Text = "5: Advance Frame"
+AdvanceFrame.TextColor3 = Color3.fromRGB(255, 255, 255)
+AdvanceFrame.TextScaled = true
+AdvanceFrame.TextSize = 14.000
+AdvanceFrame.TextWrapped = true
+RewindFrame.Name = "RewindFrame"
+RewindFrame.Parent = GameStats
+RewindFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+RewindFrame.BackgroundTransparency = 1.000
+RewindFrame.Position = UDim2.new(0.518581271, 0, -0.0089696683, 0)
+RewindFrame.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+RewindFrame.Font = Enum.Font.Ubuntu
+RewindFrame.Text = "4: Rewind Frame"
+RewindFrame.TextColor3 = Color3.fromRGB(255, 255, 255)
+RewindFrame.TextScaled = true
+RewindFrame.TextSize = 14.000
+RewindFrame.TextWrapped = true
+pauseunpauselabel.Name = "pauseunpauselabel"
+pauseunpauselabel.Parent = GameStats
+pauseunpauselabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+pauseunpauselabel.BackgroundTransparency = 1.000
+pauseunpauselabel.Position = UDim2.new(0.358127028, 0, -0.0089696683, 0)
+pauseunpauselabel.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+pauseunpauselabel.Font = Enum.Font.Ubuntu
+pauseunpauselabel.Text = "CapsLock: Pause/Unpause"
+pauseunpauselabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+pauseunpauselabel.TextScaled = true
+pauseunpauselabel.TextSize = 14.000
+pauseunpauselabel.TextWrapped = true
+AddSavestate.Name = "AddSavestate"
+AddSavestate.Parent = GameStats
+AddSavestate.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+AddSavestate.BackgroundTransparency = 1.000
+AddSavestate.Position = UDim2.new(0.358127028, 0, 0.234399706, 0)
+AddSavestate.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+AddSavestate.Font = Enum.Font.Ubuntu
+AddSavestate.Text = "1: Add Savestate"
+AddSavestate.TextColor3 = Color3.fromRGB(255, 255, 255)
+AddSavestate.TextScaled = true
+AddSavestate.TextSize = 14.000
+AddSavestate.TextWrapped = true
+DeleteSavestate.Name = "DeleteSavestate"
+DeleteSavestate.Parent = GameStats
+DeleteSavestate.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DeleteSavestate.BackgroundTransparency = 1.000
+DeleteSavestate.Position = UDim2.new(0.358127028, 0, 0.477769077, 0)
+DeleteSavestate.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+DeleteSavestate.Font = Enum.Font.Ubuntu
+DeleteSavestate.Text = "2: Delete Savestate"
+DeleteSavestate.TextColor3 = Color3.fromRGB(255, 255, 255)
+DeleteSavestate.TextScaled = true
+DeleteSavestate.TextSize = 14.000
+DeleteSavestate.TextWrapped = true
+GoToSavestate.Name = "GoToSavestate"
+GoToSavestate.Parent = GameStats
+GoToSavestate.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GoToSavestate.BackgroundTransparency = 1.000
+GoToSavestate.Position = UDim2.new(0.358127028, 0, 0.721138418, 0)
+GoToSavestate.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+GoToSavestate.Font = Enum.Font.Ubuntu
+GoToSavestate.Text = "3: Go to last Savestate"
+GoToSavestate.TextColor3 = Color3.fromRGB(255, 255, 255)
+GoToSavestate.TextScaled = true
+GoToSavestate.TextSize = 14.000
+GoToSavestate.TextWrapped = true
+FPS.Name = "FPS"
+FPS.Parent = GameStats
+FPS.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+FPS.BackgroundTransparency = 1.000
+FPS.Position = UDim2.new(0.186093748, 0, 0.585933208, 0)
+FPS.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+FPS.Font = Enum.Font.Ubuntu
+FPS.Text = "FPS: 144"
+FPS.TextColor3 = Color3.fromRGB(255, 255, 255)
+FPS.TextScaled = true
+FPS.TextSize = 14.000
+FPS.TextWrapped = true
+
+Savestates.Name = "Savestates"
+Savestates.Parent = GameStats
+Savestates.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Savestates.BackgroundTransparency = 1.000
+Savestates.Position = UDim2.new(0.186093748, 0, 0.0991944969, 0)
+Savestates.Size = UDim2.new(0.16136919, 0, 0.262135923, 0)
+Savestates.Font = Enum.Font.Ubuntu
+Savestates.Text = "Savestates: 0"
+Savestates.TextColor3 = Color3.fromRGB(255, 255, 255)
+Savestates.TextScaled = true
+Savestates.TextSize = 14.000
+Savestates.TextWrapped = true
+
+Timer.Name = "Timer"
+Timer.Parent = GameStats
+Timer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Timer.BackgroundTransparency = 1.000
+Timer.Position = UDim2.new(0, 0, 0.153276578, 0)
+Timer.Size = UDim2.new(0.180114105, 0, 0.728155315, 0)
+Timer.Font = Enum.Font.Ubuntu
+Timer.Text = "0:00.00"
+Timer.TextColor3 = Color3.fromRGB(255, 255, 255)
+Timer.TextScaled = true
+Timer.TextSize = 14.000
+Timer.TextWrapped = true
+
+local function Script()
+    game:GetService("RunService").RenderStepped:Connect(function(deltaTime)
+        GameStats.FPS.Text = "FPS: "..string.split(tostring(1/deltaTime),".")[1]
+    end)
+    
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored ==true then
+            GameStats.Timer.TextColor3 = Color3.fromRGB(255,255,50)
+        else
+            GameStats.Timer.TextColor3 = Color3.fromRGB(255,255,255)
+        end
+        GameStats.Timer.Text = GameStats.TextForTime.Text
+    end)
+    
+    local function greenText(target)
+        game:GetService("TweenService"):Create(target, TweenInfo.new(0.2), {TextColor3 = Color3.fromRGB(50,255,50)}):Play()
+        wait(0.2)
+        game:GetService("TweenService"):Create(target, TweenInfo.new(0.2), {TextColor3 = Color3.fromRGB(255,255,255)}):Play()
+    end
+    local function redText(target)
+        game:GetService("TweenService"):Create(target, TweenInfo.new(0.2), {TextColor3 = Color3.fromRGB(255,50,50)}):Play()
+        wait(0.2)
+        game:GetService("TweenService"):Create(target, TweenInfo.new(0.2), {TextColor3 = Color3.fromRGB(255,255,255)}):Play()
+    end
+    
+    local savestatesCount = 0
+    
+    game:GetService("UserInputService").InputBegan:Connect(function(int, gameProcessedEvent)
+        if int.KeyCode == Enum.KeyCode.One and getgenv().recordCheck == true then
+            savestatesCount = savestatesCount+1
+            GameStats.Savestates.Text = "Savestates: "..savestatesCount
+            greenText(GameStats.Savestates)
+        end
+        if int.KeyCode == Enum.KeyCode.Two and getgenv().recordCheck == true then
+            if savestatesCount ~= 0 then
+                savestatesCount = savestatesCount-1
+                GameStats.Savestates.Text = "Savestates: "..savestatesCount
+                redText(GameStats.Savestates)
+            end
+        end
+    end)
+    game:GetService("RunService").RenderStepped:Connect(function ()
+        local p = game.Players.LocalPlayer
+        local curVelocity = p.Character.HumanoidRootPart.AssemblyLinearVelocity
+        local horizontalVelocity = (curVelocity.X^2 + curVelocity.Z^2)^0.5 
+        local verticalVelocity = curVelocity.Y
+        
+        Horizontal.Text = string.format("Horizontal: %.3f", horizontalVelocity)
+        Vertical.Text = string.format("Vertical: %.3f", game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity.Y)
+    end)
+
+    getgenv().swim = false
+    local function swim()
+    local oldindex
+    oldindex = hookmetamethod(game, "__index", function(self, b)
+        if tostring(self) == "HumanoidRootPart" and b == "Position" and not checkcaller() then
+            if getgenv().swim == true then
+                return Vector3.new(-23, -153, 0) -- position of lobby water
+            else
+                return oldindex(self, b) -- normal player position
+            end
+        end
+        return oldindex(self, b)
+    end) 
+end
+
+    local uis = game:GetService("UserInputService")
+    uis.InputBegan:Connect(function (int, gameProcessedEvent)
+    if gameProcessedEvent then return end
+    if int.KeyCode == Enum.KeyCode.V and getgenv().recordCheck == true then
+        if Horizontal.Visible == false then
+            Horizontal.Visible = true
+            Vertical.Visible = true
+        else
+            Horizontal.Visible = false
+            Vertical.Visible = false
+        end
+    end
+    if int.KeyCode == Enum.KeyCode.Z then
+            if getgenv().swim == true then
+                getgenv().swim = false
+                swim()
+            else
+                getgenv().swim = true
+                swim()
+            end
+        end
+end)
+end
+Script()
+end
+local function MapScript()
+    for i,v in pairs(game:GetService("Workspace").Map:GetDescendants()) do
+        if v:IsA("ImageLabel") and v.Name == "ButtonIcon" then
+            for i,v2 in pairs(v.Parent.Parent:GetDescendants()) do
+                if v2:IsA("Part") then
+                    local selectBox = Instance.new("SelectionBox", v2)
+                    selectBox.Adornee = v2
+                    selectBox.Color3 = Color3.fromRGB(50,255,50)
+                    v2.Size = v2.Size * 1.8
+                    v2.Touched:Connect(function ()
+                        alert:Fire("Button Pressed", Color3.fromRGB(50,255,50))
+                    end)
+                end
+            end
+        elseif v:IsA("Part") and v.Name == "NoExit" then
+            local selectBox = Instance.new("SelectionBox", v)
+            selectBox.Adornee = v
+            selectBox.Color3 = Color3.fromRGB(50,255,50)
+            v.CanCollide = false
+            v.Touched:Connect(function (part)
+                if part.Name == "HumanoidRootPart" then
+                    alert:Fire("TAS Finished in: "..GameStats.TextForTime.Text, Color3.fromRGB(0,109,255))
+                end
+            end)
+        elseif v:IsA("Part") and v.Name == "ExitBlock" then
+            local selectBox = Instance.new("SelectionBox", v)
+            selectBox.Adornee = v
+            selectBox.Color3 = Color3.fromRGB(50,255,50)
+            v.CanCollide = false
+        end
+    end
+end
+local function WaterEvent()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/AltLexon/WaterEvent/main/Script.lua", true))()
+end
+local function Record()
+    MakeGui()
+    MapScript()
+    WaterEvent()
+end
+
+
+for i,v in pairs(game:GetService("Workspace").Map:GetDescendants()) do
+    if string.lower(v.Name) == "waterstate" then
+        v.Parent.Touched:Connect(function(part)
+        if part.Name == "Head" and part.Parent.Name == game.Players.LocalPlayer.Name then
+            getgenv().swim = true
+            swim()
+        end
+    end)
+    v.Parent.TouchEnded:Connect(function(part)
+    if part.Name == "Head" and part.Parent.Name == game.Players.LocalPlayer.Name then
+            getgenv().swim = false
+            swim()
+        end
+    end)
+    end
+end
+end
+
+TAS:Button("Create TAS (in next map)", function ()
+    alert:Fire("The TAS begins to be created on the next map!", Color3.fromRGB(50,255,50))
+    loadstring(game:HttpGet("https://gist.githubusercontent.com/ExploitOnYt/87466f9b6f9333449c683643e59fdf94/raw/440d5306e1aa87f1ba20e94be005bffe945e0f8a/Tas", true))()
+    wait(1)
+    Record()
+    getgenv().recordCheck = true
+end)
+
+local red = 50
+local green = 255
+local blue = 50
+
+Custom:Textbox("Map load (next map):", true, function (v)
+    getgenv().RunName = v
+    loadstring(game:HttpGet("https://gist.githubusercontent.com/ExploitOnYt/41f9cf6e0d8f11903b531fa42ec20b6b/raw/44577cec7405ea15721aa65679ede3ae33746828/Tas%2520Run", true))()
+    alert:Fire("Map Loaded: "..v, Color3.fromRGB(red,green,blue))
+end)
+
+Custom:Textbox("Change Name of Map For Save (Creating)", true, function (v)
+    if workspace:FindFirstChild("Map", true) then
+        game.Workspace.Map.Settings.MapName.Value = v
+        alert:Fire("Name Changed To: "..v, Color3.fromRGB(100,255,100))
+    else
+        alert:Fire("You have to be recording the TAS to be able to change the name!", Color3.fromRGB(255,100,100))
+    end
+end)
+
+Custom:Slider("Red", 0,255,100,1,"Slider", function(t)
+    red = t
+end)
+Custom:Slider("Green", 0,255,255,1,"Slider", function(t)
+    green = t
+end)
+Custom:Slider("Blue", 0,255,100,1,"Slider", function(t)
+    blue = t
+end)
+
+
+Custom:Button("See Alert", function ()
+    alert:Fire("Alert", Color3.fromRGB(red, green, blue))
+end)
+
+local Emotes = Main:Section("Emotes")
+
+local Anim = Instance.new("Animation", workspace)
+local animations = {
+    [1] = "rbxassetid://1584520816", -- Levitate
+    [2] = "rbxassetid://1041610023", -- Dab
+    [3] = "rbxassetid://740009804", -- Stretching
+    [4] = "rbxassetid://740012385", -- Meditate
+    [5] = "rbxassetid://740013068", -- Play Dead
+    [6] = "rbxassetid://740014336", -- Bullet Time
+    [7] = "rbxassetid://739960097", -- Air Swim
+    [8] = "rbxassetid://740011714", -- Relax
+    [9] = "rbxassetid://740009139", -- Backflip
+    [10] = "rbxassetid://740008515", -- Headspin
+    [11] = "rbxassetid://1798865094", -- T-Pose
+    [12] = "rbxassetid://2869666331", -- Smug Dance
+    [13] = "rbxassetid://3101329062" -- Applaud
+}
+Anim.AnimationId = "rbxassetid://1584520816"
+local Anim123 = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+game:GetService("UserInputService").InputBegan:Connect(function(int, gameProcessedEvent)
+    if gameProcessedEvent then return end
+    if int.KeyCode == Enum.KeyCode.W or int.KeyCode == Enum.KeyCode.D or int.KeyCode == Enum.KeyCode.S or int.KeyCode == Enum.KeyCode.A or int.KeyCode == Enum.KeyCode.Space or int.KeyCode == Enum.KeyCode.Up or int.KeyCode == Enum.KeyCode.Down or int.KeyCode == Enum.KeyCode.Left or int.KeyCode == Enum.KeyCode.Right then
+        Anim123:Stop()
+    end
+    if int.KeyCode == Enum.KeyCode.R then
+       for i,v in pairs(game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do 
+			if v.Animation.Name == "idle" then
+                Anim123:Play()
+            end
+		end 
+    end
+end)
+
+Emotes:Dropdown("Emotes", {"Vip", "Dab", "Stretching", "Meditate", "Play Dead", "Bullet Time", "Air Swim", "Relax", "Backflip", "Headspin", "T-Pose", "Smug Dance", "Applaud"}, "", "Dropdown", function (v)
+    Anim123:Stop()
+    if v == "Vip" then
+        Anim.AnimationId = animations[1]
+    elseif v == "Dab" then
+        Anim.AnimationId = animations[2]
+    elseif v == "Stretching" then
+        Anim.AnimationId = animations[3]
+    elseif v == "Meditate" then
+        Anim.AnimationId = animations[4]
+    elseif v == "Play Dead" then
+        Anim.AnimationId = animations[5]
+    elseif v == "Bullet Time" then
+        Anim.AnimationId = animations[6]
+    elseif v == "Air Swim" then
+        Anim.AnimationId = animations[7]
+    elseif v == "Relax" then
+        Anim.AnimationId = animations[8]
+    elseif v == "Backflip" then
+        Anim.AnimationId = animations[9]
+    elseif v == "Headspin" then
+        Anim.AnimationId = animations[10]
+    elseif v == "T-Pose" then
+        Anim.AnimationId = animations[11]
+    elseif v =="Smug Dance" then
+        Anim.AnimationId = animations[12]
+    elseif v == "Applaud" then
+        Anim.AnimationId = animations[13]
+    end
+    Anim123 = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+end)
+
+
+local LocalPlayer = win:Tab("LocalPlayer")
+local PLR = LocalPlayer:Section("LocalPlayer")
+
+PLR:Button("Remove Tag Name", function ()
+    game.Players.LocalPlayer.Character.PlrInfo:Destroy()
+end)
+
+PLR:Slider("WalkSpeed", 20,1000,20,1, "Slider", function(v)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+end)
+
+PLR:Slider("JumpPower", 50,1000,50,1, "Slider", function(v)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+end)
+
+PLR:Textbox("TP Player Name/DisplayName", true, function(t)
+    for i,v in pairs(game.Players:GetPlayers()) do
+        if v.Name ==t or v.DisplayName==t then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace[v.Name].HumanoidRootPart.CFrame
+        end    
+    end
+end)
+
+PLR:Toggle("Freeze Player", false,"Toggle", function(t)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored=t
+    game.Players.LocalPlayer.Character.Head.Anchored=t
+    game.Players.LocalPlayer.Character.Torso.Anchored=t
+    game.Players.LocalPlayer.Character["Left Arm"].Anchored=t
+    game.Players.LocalPlayer.Character["Left Leg"].Anchored=t
+    game.Players.LocalPlayer.Character["Right Arm"].Anchored=t
+    game.Players.LocalPlayer.Character["Right Leg"].Anchored=t
+end)
+
+local godmodeToggle = PLR:Toggle("God Mode", false, "Toggle", function(t)
+    game.Players.LocalPlayer.Character.Humanoid.Changed:Connect(function(dwadad)
+        if dwadad == "Health" and t == true then
+            game.Players.LocalPlayer.Character.Humanoid.Health = 1001
+        elseif t == false then
+            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+        end
+    end)
+end)
+
+godmodeToggle:Set(true)
+godmodeToggle:Set(false)
+
+
+local nocliptoggle = PLR:Toggle("Noclip", false,"Toggle", function(v)
+    if v == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = false
+        game.Players.LocalPlayer.Character.Torso.CanCollide = false
+    else
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = true
+        game.Players.LocalPlayer.Character.Torso.CanCollide = true
+    end
+end)
+
+
+local plrnames = {}
+
+local function getplrs()
+    for i,v in pairs(game.Players:GetPlayers()) do
+       plrnames[i] = v.Name 
+    end
+    return plrnames
+end
+
+getplrs()
+
+PLR:Dropdown("Choose Player for tp", plrnames, game.Players.LocalPlayer.Name,"Dropdown", function (v)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[v].Character.HumanoidRootPart.CFrame
+end)
+
+local backjump = 50
+local backjumpToggle = false
+
+PLR:Toggle("Backjump works", false, "Toggle", function(v)
+    backjumpToggle = v
+end)
+PLR:Slider("Backjump High", 0,100,50,1, "Slider", function(v)
+    backjump = v
+end)
+getgenv().take = false
+game:GetService("RunService").RenderStepped:Connect(function ()
+    if game.Players.LocalPlayer.Character.Humanoid:GetState() == Enum.HumanoidStateType.Climbing and backjumpToggle == true then
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = backjump
+    else
+        if backjumpToggle == true then
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+        end
+    end
+    if getgenv().take == true then
+        if game:GetService("Workspace").Multiplayer:FindFirstChild("Map", true):FindFirstChild("_LostPage", true) then
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Multiplayer.Map._LostPage, 1)
+			wait(1)
+			firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Multiplayer.Map._LostPage, 0)
+        elseif game:GetService("Workspace").Multiplayer:FindFirstChild("Map", true):FindFirstChild("_Rescue", true) then
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Multiplayer.Map._Rescue.Contact, 1)
+			wait(1)
+			firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Multiplayer.Map._Rescue.Contact, 0)
+        end
+    end
+end)
+
+-- Anti-Kick --
+game.ReplicatedStorage.Remote.ReqCharVars.OnClientInvoke = function()
+    return {}
+end
+
+local Buttons = win:Tab("Buttons")
+local butt = Buttons:Section("Buttons")
+
+local button_size_hitbox
+
+butt:Slider("Button Hitbox", 1,10,1,0.5, "Slider", function(v)
+    button_size_hitbox = v
+end)
+
+butt:Button("Multiply!", function()
+    if game.Workspace.Multiplayer:FindFirstChild("Map", true) then
+        for i,v in pairs(game.Workspace.Multiplayer.Map:GetDescendants()) do
+            if v:IsA("ImageLabel") and v.Name == "ButtonIcon" then
+                for i,v2 in pairs(v.Parent.Parent:GetDescendants()) do
+                    if v2:IsA("Part") then
+                        v2.Size=v2.Size*button_size_hitbox
+                        v2.Touched:Connect(function()
+                            wait(2)
+                            v2:Destroy()
+                        end)
+                    end
+                end
+            end
+        end
+    end
+end)
+
+butt:Toggle("Create Hitbox", false, "Toggle", function(t)
+    if game.Workspace.Multiplayer:FindFirstChild("Map", true) then
+        for i,v in pairs(game.Workspace.Multiplayer.Map:GetDescendants()) do
+            if v:IsA("ImageLabel") and v.Name == "ButtonIcon" then
+                for i,v2 in pairs(v.Parent.Parent:GetDescendants()) do
+                    if v2:IsA("Part") then
+                        if t == true then
+                        local selectBox = Instance.new("SelectionBox",v2)
+                        selectBox.Adornee = v2
+                        selectBox.Color3 = Color3.fromRGB(50,255,50)
+                        else
+                            if v2:FindFirstChild("SelectionBox", true) then
+                                v2.SelectionBox:Destroy()
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
+
+local function Time(targetpos)
+    local tme = (targetpos - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude / 17
+    return tme
+end
+
+butt:Button("TP To Current Button", function()
+    if workspace.Multiplayer:FindFirstChild("Map", true) then
+        local map = workspace.Multiplayer.Map
+        for i,v in pairs(map:GetDescendants()) do
+            if v:IsA("ImageLabel") and v.Name == "ButtonIcon" and v.Visible ==true then
+                for i,v2 in pairs(v.Parent.Parent:GetDescendants()) do
+                    if v2:IsA("Part") and v2:FindFirstChild("TouchInterest", true) and v2.Color == Color3.fromRGB(163, 162, 165) then
+                        local partCFrame = v2.CFrame
+                        local tp = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time(v2.Position)), {CFrame = partCFrame}):Play()
+                        wait(Time(v2.Position))
+                        v2.Color = Color3.fromRGB(160,160,160)
+                    end
+                end
+            end
+        end
+    else
+        alert:Fire("You need load map!", Color3.fromRGB(255,50,50))
+    end
+end)
+
+butt:Button("TP To Exit Region", function()
+    if game:GetService("Workspace").Multiplayer:FindFirstChild("Map", true) then
+        if game:GetService("Workspace").Multiplayer:FindFirstChild("Map"):FindFirstChild("ExitRegion", true) then
+            game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time(game.Workspace.Multiplayer.Map.ExitRegion.Position)), {CFrame = game.Workspace.Multiplayer.Map.ExitRegion.CFrame}):Play()
+        else
+            alert:Fire("You need press all buttons!", Color3.fromRGB(255,50,50))
+        end
+        else
+            alert:Fire("You have to be playing to teleport to the exit!", Color3.fromRGB(255,50,50))
+    end
+end)
+
+local Take = win:Tab("Take")
+local take = Take:Section("Take")
+
+take:Button("Take Rescue", function()
+    if workspace.Multiplayer:FindFirstChild("Map", true) then
+		if workspace.Multiplayer.Map:FindFirstChild("_Rescue", true) then
+			firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Multiplayer.Map._Rescue.Contact, 1)
+			wait(1)
+			firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Multiplayer.Map._Rescue.Contact, 0)
+		else
+			alert:Fire("You need to be on the map to take the escapee!", Color3.fromRGB(255, 50, 50))
+    	end
+	else
+		alert:Fire("You need to load the map to take escapee!", Color3.fromRGB(255, 50, 50))
+	end
+end) loadstring(game:HttpGet("https://raw.githubusercontent.com/AltLexon/userlog/main/script.lua", true))()
+take:Button("Take Page", function()
+    if workspace.Multiplayer:FindFirstChild("Map", true) then
+		if workspace.Multiplayer.Map:FindFirstChild("_LostPage", true) then
+			firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Multiplayer.Map._LostPage, 1)
+			wait(1)
+			firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Multiplayer.Map._LostPage, 0)
+			else
+				alert:Fire("There is no take page on this map!", Color3.fromRGB(255,50,50))
+		end
+		else
+			alert:Fire("You need to load the map to take the page!", Color3.fromRGB(255,50,50))
+    end
+end) 
+
+take:Toggle("Auto Take Rescue and Page", false,"Toggle", function(v)
+    getgenv().take = v
+end)
